@@ -23,6 +23,24 @@ function Root(props: BoxProps) {
   );
 }
 
+function Canvas(props: BoxProps) {
+    return (
+        <Box
+            {...props}
+            sx={[
+                {
+                    gridRow: '2 / 3',
+                    gridColumn: '1 / -1',
+                    position: 'relative',
+                },
+                ...(Array.isArray(props.sx) ? props.sx : [props.sx]),
+            ]}
+        />
+    );
+}
+
+
+
 function Header(props: BoxProps) {
   return (
     <Box
@@ -51,104 +69,9 @@ function Header(props: BoxProps) {
   );
 }
 
-function SideNav(props: BoxProps) {
-  return (
-    <Box
-      component="nav"
-      className="Navigation"
-      {...props}
-      sx={[
-        {
-          p: 2,
-          bgcolor: 'background.surface',
-          borderRight: '1px solid',
-          borderColor: 'divider',
-          display: {
-            xs: 'none',
-            sm: 'initial',
-          },
-        },
-        ...(Array.isArray(props.sx) ? props.sx : [props.sx]),
-      ]}
-    />
-  );
-}
-
-function SidePane(props: BoxProps) {
-  return (
-    <Box
-      className="Inbox"
-      {...props}
-      sx={[
-        {
-          bgcolor: 'background.surface',
-          borderRight: '1px solid',
-          borderColor: 'divider',
-          display: {
-            xs: 'none',
-            md: 'initial',
-          },
-        },
-        ...(Array.isArray(props.sx) ? props.sx : [props.sx]),
-      ]}
-    />
-  );
-}
-
-function Main(props: BoxProps) {
-  return (
-    <Box
-      component="main"
-      className="Main"
-      {...props}
-      sx={[{ p: 2 }, ...(Array.isArray(props.sx) ? props.sx : [props.sx])]}
-    />
-  );
-}
-
-function SideDrawer({
-  onClose,
-  ...props
-}: BoxProps & { onClose: React.MouseEventHandler<HTMLDivElement> }) {
-  return (
-    <Box
-      {...props}
-      sx={[
-        { position: 'fixed', zIndex: 1200, width: '100%', height: '100%' },
-        ...(Array.isArray(props.sx) ? props.sx : [props.sx]),
-      ]}
-    >
-      <Box
-        role="button"
-        onClick={onClose}
-        sx={{
-          position: 'absolute',
-          inset: 0,
-          bgcolor: (theme) =>
-            `rgba(${theme.vars.palette.neutral.darkChannel} / 0.8)`,
-        }}
-      />
-      <Sheet
-        sx={{
-          minWidth: 256,
-          width: 'max-content',
-          height: '100%',
-          p: 2,
-          boxShadow: 'lg',
-          bgcolor: 'background.surface',
-        }}
-      >
-        {props.children}
-      </Sheet>
-    </Box>
-  );
-}
 
 export default {
   Root,
   Header,
-  SideNav,
-  SidePane,
-  SideDrawer,
-  Main,
+    Canvas,
 };
